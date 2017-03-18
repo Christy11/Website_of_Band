@@ -22,9 +22,7 @@ header {
     border-bottom-width: 0;
 }
 header nav {
-    background-image: url("../images/navbar.jpg");
     background-position: bottom left;
-    background-repeat: repeat-x;
     border-width: .1em;
     border-style: solid;
     border-bottom-width: 0;
