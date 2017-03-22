@@ -24,7 +24,7 @@ function insertAfter(newElement, targetElement) {
 }
 
 function addClass(element, value) {
-  if (!element.className ) {
+  if (!element.className) {
     element.className = value;
   } else {
     newClassName = element.className;
@@ -34,7 +34,7 @@ function addClass(element, value) {
   }
 }
 
-function highlightPage( href ) {
+function highlightPage(href) {
   if (!document.getElementsByTagName) return false;
   if (!document.getElementById) return false;
 
@@ -45,7 +45,7 @@ function highlightPage( href ) {
 
    var links = navs[0].getElementsByTagName("a");
    var linkurl;
-   for(var i=0; i<links.length; i++) {
+   for (var i = 0; i < links.length; i++) {
      linkurl = links[i].getAttribute("href");
      if (window.location.href.indexOf(linkurl) != -1) {
        links[i].className = "here";
@@ -55,7 +55,7 @@ function highlightPage( href ) {
    }
 }
 
-addLoadEvent(highlightPage);
+addLoadEvent(highlightPage());
 
 function moveElement(elementID, final_x, final_y, interval) {
   if (!document.getElementById) return false;
@@ -135,5 +135,37 @@ function prepareSlideshow() {
     }
   }
 }
-
 addLoadEvent(prepareSlideshow);
+
+function showSction(id) {
+  var sections = document.getElementsByTagName("section");
+  for (var i=0; i<sections.length; i ++) {
+    if (sections[i].getAttribute("id") != id) {
+      sections[i].style.display = "none";
+    } else {
+      sections[i].style.display = "block";
+    }
+  }
+}
+function prepareInternalnav() {
+  if (!document.getElementsByTagName) return false;
+  if (!document.getElementById) return false;
+
+  var articles = document.getElementsByTagName("article");
+  if (articles.length == 0) return false;
+  var navs = articles[0].getElementsByTagName("nav");
+  if (navs.length == 0) return false;
+  var nav = navs[0];
+  var links = nav.getElementsByTagName("a");
+  for (var i=0; i <links.length; i++) {
+    var sectionId = links[i].getAttribute("href").split("#")[1];
+    if (!document.getElementById(sectionId)) continue;
+    document.getElementById(sectionId).style.display = "none";
+    links[i].destination = sectionId;
+    links[i].onclick = function () {
+      showSction(this.destination);
+      return false;
+    }
+  }
+}
+addLoadEvent(prepareInternalnav);
