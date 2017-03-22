@@ -14,12 +14,24 @@ body {
     max-width: 80em;
 }
 header {
-    background-image: url("../images/guitarist.jpg");
+    background-image: url("../images/guitarist.png");
     background-repeat:no-repeat;
     background-position: bottom right;
     border-width: .1em;
     border-style: solid;
     border-bottom-width: 0;
+}
+#about header {
+    background-image: url("../images/lineup.png");
+}
+#photos header {
+    background-image: url("../images/basshead.png");
+}
+#live header {
+    background-image: url("../images/bassist.png");
+}
+#contact header {
+    background-image: url("../images/drummer.png");;
 }
 header nav {
     background-position: bottom left;
@@ -56,4 +68,22 @@ article img {
     border-style: solid;
     outline-width: .1em;
     outline-style: solid;
+}
+#slideshow {
+    width: 150px;
+    height:150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+#preview {
+    position: absolute;
+    border-width: 0;
+    outline-width: 0;
+}
+#frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
 }
