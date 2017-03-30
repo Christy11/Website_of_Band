@@ -20,7 +20,8 @@ a:active {
 }
 header {
     color: #ec8;
-    background-color: #667;
+    background-color: #334;
+    border-color: #667;
 }
 header nav {
     color: #455;

@@ -7,7 +7,7 @@ section, header, article, nav {
 }
 body {
     margin: 1em 10%;
-    background-image: url("../images/background.jpg");
+    background-image: url("../images/background.gif");
     background-attachment: fixed;
     background-position: top left;
     background-repeat:repeat-x;

@@ -13,7 +13,6 @@ function addLoadEvent(func) {
     }
   }
 }
-
 function insertAfter(newElement, targetElement) {
   var parent = targetElement.parentNode;
   if (parent.lastChild == targetElement) {
@@ -22,7 +21,6 @@ function insertAfter(newElement, targetElement) {
     parent.insertBefore(newElement, targetElement.nextSibling);
   }
 }
-
 function addClass(element, value) {
   if (!element.className) {
     element.className = value;
@@ -33,7 +31,6 @@ function addClass(element, value) {
     element.className = newClassName;
   }
 }
-
 function highlightPage(href) {
   if (!document.getElementsByTagName) return false;
   if (!document.getElementById) return false;
@@ -54,9 +51,7 @@ function highlightPage(href) {
      }
    }
 }
-
-addLoadEvent(highlightPage());
-
+// home.html
 function moveElement(elementID, final_x, final_y, interval) {
   if (!document.getElementById) return false;
   if (!document.getElementById(elementID)) return false;
@@ -135,8 +130,7 @@ function prepareSlideshow() {
     }
   }
 }
-addLoadEvent(prepareSlideshow);
-
+// about.html
 function showSction(id) {
   var sections = document.getElementsByTagName("section");
   for (var i=0; i<sections.length; i ++) {
@@ -168,8 +162,8 @@ function prepareInternalnav() {
     }
   }
 }
-addLoadEvent(prepareInternalnav);
 
+// Photos.html
 function showPic(whichpic) {
   if (!document.getElementById("placeholder")) return true;
   var source = whichpic.getAttribute("href");
@@ -221,9 +215,7 @@ function prepareGallery() {
     }
   }
 }
-addLoadEvent(preparePlaceholder);
-addLoadEvent(prepareGallery);
-
+// live.html
 function stripeTables() {
   if (!document.getElementsByTagName) return false;
   var tables = document.getElementsByTagName("table");
@@ -290,10 +282,7 @@ function displayAbbreviations() {
   container.appendChild(header);
   container.appendChild(dlist);
 }
-addLoadEvent(stripeTables);
-addLoadEvent(highlightRows);
-addLoadEvent(displayAbbreviations);
-
+// contact.html
 function focusLabels() {
   if (!document.getElementsByTagName) return false;
   var labels = document.getElementsByTagName("label");
@@ -305,7 +294,6 @@ function focusLabels() {
     element.focus();
   }
 }
-addLoadEvent(focusLabels);
 
 function resetFields(whichform) {
   if (Modernizr.input.placeholder) return;
@@ -367,6 +355,7 @@ function validateForm(whichform) {
   }
   return true;
 }
+// Ajax
 function getHTTPObject() {
   if (typeof XMLHttpRequest == "undefined")
     XMLHttpRequest = function () {
@@ -381,18 +370,23 @@ function getHTTPObject() {
     return new XMLHttpRequest();
 }
 function displayAjaxLoading(element) {
+  // Remove the existing content.
   while (element.hasChildNodes()) {
     element.removeChild(element.lastChild);
   }
+  // Create a loading image.
   var content = document.createElement("img");
   content.setAttribute("src","images/loading.gif");
   content.setAttribute("alt","Loading...");
+  // Append the loading element;
   element.appendChild(content);
 }
 function submitFormWithAjax(whichform, thetarget) {
   var request = getHTTPObject();
   if (!request) {  return false;  }
+  // Display a loading message.
   displayAjaxLoading(thetarget);
+  // Collect the data.
   var dataParts = [];
   var element;
   for (var i = 0; i < whichform.elements.length; i++) {
@@ -400,8 +394,10 @@ function submitFormWithAjax(whichform, thetarget) {
     dataParts[i] = element.name + '=' + encodeURIComponent(element.value);
   }
   var data = dataParts.join('&');
+
   request.open('POST', whichform.getAttribute("action"), true);
   request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
   request.onreadystatechange = function () {
     if (request.readyState == 4) {
       if (request.status == 200 || request.status == 0) {
@@ -409,7 +405,7 @@ function submitFormWithAjax(whichform, thetarget) {
         if (matches.length > 0) {
           thetarget.innerHTML = matches[1];
         } else {
-          thetarget.innerHTML = '<p>Oops, there was an error.Sorry.</p>';
+          thetarget.innerHTML = '<p>Oops, there was an error. Sorry.</p>';
         }
       } else {
         thetarget.innerHTML = '<p>' + request.statusText + '</p>';
@@ -419,6 +415,7 @@ function submitFormWithAjax(whichform, thetarget) {
   request.send(data);
   return true;
 };
+
 function prepareForms() {
   for (var i=0; i<document.forms.length; i++) {
     var thisform = document.forms[i];
@@ -431,4 +428,23 @@ function prepareForms() {
     }
   }
 }
-addLoadEvent(prepareForms);
+
+function loadEvents() {
+  // home
+  prepareSlideshow();
+  // about
+  prepareInternalnav();
+  // photos
+  preparePlaceholder();
+  prepareGallery();
+  // live
+  stripeTables();
+  highlightRows();
+  displayAbbreviations();
+  // contact
+  focusLabels();
+  prepareForms();
+}
+// Load events
+addLoadEvent(highlightPage);
+addLoadEvent(loadEvents);
